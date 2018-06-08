@@ -30,7 +30,10 @@ class OCStorageClassTest(unittest.TestCase):
               'annotations': {'storageclass.beta.kubernetes.io/is-default-class': "true"},
               'parameters': {'type': 'gp2'},
               'api_version': 'v1',
-              'default_storage_class': 'true'}
+              'default_storage_class': 'true',
+              'mount_options': ['debug'],
+              'reclaim_policy': 'Delete'
+              }
 
     @mock.patch('oc_storageclass.locate_oc_binary')
     @mock.patch('oc_storageclass.Utils.create_tmpfile_copy')
@@ -54,7 +57,9 @@ class OCStorageClassTest(unittest.TestCase):
                 "annotations": {"storageclass.beta.kubernetes.io/is-default-class": "true"}
             },
             "provisioner": "kubernetes.io/aws-ebs",
-            "parameters": {"type": "gp2"}
+            "parameters": {"type": "gp2"},
+            "mountOptions": ['debug'],
+            "reclaimPolicy": "Delete"
         }'''
 
         # Return values of our mocked function call. These get returned once per call.
